@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management & Attendance System</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 Student Management & Attendance System</h1>
+            <p>Manage student attendance, homework, and quiz tracking</p>
+            <p>Created By Eng/Ali Alashkar </p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('import')">📁 Import/Export</button>
+            <button class="tab" onclick="showTab('attendance')">📝 Mark Attendance</button>
+            <button class="tab" onclick="showTab('students')">👥 Student Records</button>
+            <button class="tab" onclick="showTab('reports')">📊 Reports</button>
+        </div>
+
+        <!-- Import/Export Tab -->
+        <div id="import" class="tab-content active">
+            <div class="import-export-section">
+                <h3 style="margin-bottom: 15px;">📁 Import Student Data</h3>
+                <div class="file-upload">
+                    <input type="file" id="fileInput" class="file-input" accept=".xlsx,.xls,.csv">
+                    <button class="btn btn-primary" onclick="importStudentData()">Import Excel File</button>
+                    <button class="btn btn-export" onclick="uiComponents.downloadTemplate()" style="background: #17a2b8;">📄 Download Template</button>
+                </div>
+                <p style="color: #666; margin-top: 10px;">
+                    Upload Excel file with columns: <strong>ID, Full Name, Phone Number, Email, Preferred Contact Method, Parent's Phone Number, Grade/Year Level, Center, School</strong><br>
+                    <em>Optional session columns: Session 1 Attendance, Session 1 HW, Session 1 Quiz, Session 2 Attendance, etc.</em>
+                </p>
+            </div>
+
+            <!-- NEW: Student Management Section -->
+            <div class="student-management-section">
+                <h3 style="margin-bottom: 15px;">👤 Student Management</h3>
+                <div class="student-management-buttons">
+                    <button class="btn btn-success" onclick="uiComponents.showAddStudentForm()">
+                        ➕ Add New Student
+                    </button>
+                    <button class="btn btn-warning" onclick="uiComponents.showDeletedStudents()">
+                        🗑️ View Deleted Students (<span id="deletedStudentsCount">0</span>)
+                    </button>
+                </div>
+            </div>
+
+            <div class="export-buttons">
+                <button class="btn btn-export" onclick="exportStudentInfo()">📋 Export Student Info</button>
+                <button class="btn btn-export" onclick="exportStudentRecords()">📊 Export Student Records</button>
+                <button class="btn btn-export" onclick="exportAttendanceLogs()">📝 Export Attendance Logs</button>
+                <button class="btn btn-export" onclick="excelHandler.exportAllData(); uiComponents.showAlert('All data exported successfully', 'success')" style="background: #6c757d;">📦 Export All Data</button>
+            </div>
+
+            <div class="table-container">
+                <h3 style="margin-bottom: 15px;">Current Students in System</h3>
+                <table id="importedStudentsTable">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable('importedStudentsTable', 0)">ID <span class="sort-arrow">↕</span></th>
+                            <th onclick="sortTable('importedStudentsTable', 1)">Full Name <span class="sort-arrow">↕</span></th>
+                            <th onclick="sortTable('importedStudentsTable', 2)">Phone Number <span class="sort-arrow">↕</span></th>
+                            <th onclick="sortTable('importedStudentsTable', 3)">Email <span class="sort-arrow">↕</span></th>
+                            <th onclick="sortTable('importedStudentsTable', 4)">Parent's Phone <span class="sort-arrow">↕</span></th>
+                            <th onclick="sortTable('importedStudentsTable', 5)">Grade Level <span class="sort-arrow">↕</span></th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Mark Attendance Tab -->
+        <div id="attendance" class="tab-content">
+            <div class="time-display" id="currentTime"></div>
+            
+            <div class="search-section">
+                <h3 style="margin-bottom: 15px;">🔍 Search Student</h3>
+                <div class="search-box">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Search by name, ID, or phone number...">
+                    <button class="btn btn-primary" onclick="searchStudent()">Search</button>
+                    <button class="btn btn-success" onclick="uiComponents.showAddStudentForm()" style="margin-left: 10px;">
+                        ➕ Add New Student
+                    </button>
+                </div>
+                <div id="searchResults"></div>
+            </div>
+
+            <div id="studentInfo" class="student-info">
+                <h3 style="margin-bottom: 20px; color: #2c3e50;">📋 Student Information</h3>
+                <div class="student-details" id="studentDetails"></div>
+                
+                <!-- Student Records Display -->
+                <div id="studentRecordsDisplay" class="student-records-section">
+                    <h4 style="margin-bottom: 15px; color: #2c3e50;">📊 Current Session Records</h4>
+                    <div id="studentRecordsContent"></div>
+                </div>
+                
+                <div class="attendance-section">
+                    <h4 style="margin-bottom: 15px; color: #2c3e50;">📚 Session Recording</h4>
+                    
+                    <div class="session-selector">
+                        <label style="font-weight: bold;">Session Number:</label>
+                        <select id="sessionNumber" class="select-input">
+                            <option value="1">Session 1</option>
+                            <option value="2">Session 2</option>
+                            <option value="3">Session 3</option>
+                            <option value="4">Session 4</option>
+                            <option value="5">Session 5</option>
+                            <option value="6">Session 6</option>
+                            <option value="7">Session 7</option>
+                            <option value="8">Session 8</option>
+                        </select>
+                    </div>
+
+                    <div class="hw-section">
+                        <label style="font-weight: bold;">Homework Status:</label>
+                        <select id="hwStatus" class="select-input">
+                            <option value="complete">Complete ✅</option>
+                            <option value="partial">Partial 📝</option>
+                            <option value="not-done">Not Done ❌</option>
+                        </select>
+
+                        <label style="font-weight: bold;">Quiz Score:</label>
+                        <input type="number" id="quizScore" class="quiz-score-input" placeholder="0-10" min="0" max="10">
+
+                        <button class="btn btn-success" onclick="markAttendance('present')">✅ Mark Present</button>
+                        <button class="btn btn-warning" onclick="markAttendance('absent')">❌ Mark Absent</button>
+                        <button class="btn btn-export" onclick="markAllOthersAbsent()" style="background: #e74c3c; margin-left: 15px;">🚫 Mark All Others Absent</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="alertContainer"></div>
+        </div>
+
+        <!-- Student Records Tab -->
+        <div id="students" class="tab-content">
+            <div class="student-actions-bar">
+                <button class="btn btn-success" onclick="uiComponents.showAddStudentForm()">
+                    ➕ Add New Student
+                </button>
+                <button class="btn btn-warning" onclick="uiComponents.showDeletedStudents()">
+                    🗑️ View Deleted Students (<span id="deletedStudentsCount2">0</span>)
+                </button>
+            </div>
+
+            <div class="table-container">
+                <h3 style="margin-bottom: 20px; color: #2c3e50;">📊 Student Records Overview</h3>
+                <table id="studentRecordsTable">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable('studentRecordsTable', 0)">ID <span class="sort-arrow">↕</span></th>
+                            <th onclick="sortTable('studentRecordsTable', 1)">Full Name <span class="sort-arrow">↕</span></th>
+                            <th onclick="sortTable('studentRecordsTable', 2)">Parent's Phone <span class="sort-arrow">↕</span></th>
+                            <th onclick="sortTable('studentRecordsTable', 3)">S1 Att <span class="sort-arrow">↕</span></th>
+                            <th onclick="sortTable('studentRecordsTable', 4)">S1 HW <span class="sort-arrow">↕</span></th>
+                            <th onclick="sortTable('studentRecordsTable', 5)">S1 Quiz <span class="sort-arrow">↕</span></th>
+                            <th onclick="sortTable('studentRecordsTable', 6)">S2 Att <span class="sort-arrow">↕</span></th>
+                            <th onclick="sortTable('studentRecordsTable', 7)">S2 HW <span class="sort-arrow">↕</span></th>
+                            <th onclick="sortTable('studentRecordsTable', 8)">S2 Quiz <span class="sort-arrow">↕</span></th>
+                            <th onclick="sortTable('studentRecordsTable', 9)">S3 Att <span class="sort-arrow">↕</span></th>
+                            <th onclick="sortTable('studentRecordsTable', 10)">S3 HW <span class="sort-arrow">↕</span></th>
+                            <th onclick="sortTable('studentRecordsTable', 11)">S3 Quiz <span class="sort-arrow">↕</span></th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Reports Tab -->
+        <div id="reports" class="tab-content">
+            <!-- Student Counter Cards -->
+            <div class="student-counters">
+                <div class="counter-card total">
+                    <div class="counter-number" id="totalStudentsCount">0</div>
+                    <div class="counter-label">Total Students</div>
+                </div>
+                <div class="counter-card records">
+                    <div class="counter-number" id="totalRecordsCount">0</div>
+                    <div class="counter-label">Total Records</div>
+                </div>
+                <div class="counter-card present">
+                    <div class="counter-number" id="presentTodayCount">0</div>
+                    <div class="counter-label">Present Today</div>
+                </div>
+                <div class="counter-card absent">
+                    <div class="counter-number" id="absentTodayCount">0</div>
+                    <div class="counter-label">Absent Today</div>
+                </div>
+                <div class="counter-card" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                    <div class="counter-number" id="deletedStudentsCount">0</div>
+                    <div class="counter-label">Deleted Students</div>
+                </div>
+            </div>
+
+            <h3 style="margin-bottom: 20px; color: #2c3e50;">📊 Attendance Logs</h3>
+            <div class="table-container">
+                <table id="attendanceTable">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable('attendanceTable', 0)">Date <span class="sort-arrow">↕</span></th>
+                            <th onclick="sortTable('attendanceTable', 1)">Time <span class="sort-arrow">↕</span></th>
+                            <th onclick="sortTable('attendanceTable', 2)">Student ID <span class="sort-arrow">↕</span></th>
+                            <th onclick="sortTable('attendanceTable', 3)">Student Name <span class="sort-arrow">↕</span></th>
+                            <th onclick="sortTable('attendanceTable', 4)">Session <span class="sort-arrow">↕</span></th>
+                            <th onclick="sortTable('attendanceTable', 5)">Attendance <span class="sort-arrow">↕</span></th>
+                            <th onclick="sortTable('attendanceTable', 6)">Homework Status <span class="sort-arrow">↕</span></th>
+                            <th onclick="sortTable('attendanceTable', 7)">Quiz Score <span class="sort-arrow">↕</span></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load all modules in the correct order -->
+    <script src="config.js"></script>
+    <script src="data-manager.js"></script>
+    <script src="excel-handler.js"></script>
+    <script src="ui-components.js"></script>
+    <script src="main-script.js"></script>
+</body>
+</html>
