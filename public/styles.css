@@ -1,0 +1,1318 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.header {
+    background: linear-gradient(45deg, #2c3e50, #3498db);
+    color: white;
+    padding: 30px;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.tabs {
+    display: flex;
+    background: #f8f9fa;
+    border-bottom: 3px solid #e9ecef;
+}
+
+.tab {
+    flex: 1;
+    padding: 15px 20px;
+    background: #f8f9fa;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+}
+
+.tab:hover {
+    background: #e9ecef;
+}
+
+.tab.active {
+    background: white;
+    color: #2c3e50;
+    border-bottom-color: #3498db;
+}
+
+.tab-content {
+    display: none;
+    padding: 30px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.import-export-section {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    border: 2px solid #e9ecef;
+}
+
+.file-upload {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.file-input {
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    flex: 1;
+    min-width: 200px;
+}
+
+/* NEW: Student Management Section */
+.student-management-section {
+    background: #e8f5e8;
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    border: 2px solid #27ae60;
+}
+
+.student-management-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.student-actions-bar {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+/* NEW: Student Form Styles */
+.student-form-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.student-form {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    max-width: 800px;
+    width: 90%;
+    max-height: 90%;
+    overflow-y: auto;
+}
+
+.student-form h3 {
+    margin-bottom: 25px;
+    color: #2c3e50;
+    text-align: center;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
+}
+
+.form-group input[readonly] {
+    background: #f8f9fa;
+    color: #666;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+/* NEW: Deleted Students Styles */
+.deleted-students-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.deleted-students-list {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    max-width: 1000px;
+    width: 90%;
+    max-height: 90%;
+    overflow-y: auto;
+}
+
+.deleted-students-list h3 {
+    margin-bottom: 25px;
+    color: #e74c3c;
+    text-align: center;
+}
+
+.deleted-students-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.deleted-student-card {
+    background: #f8d7da;
+    border: 2px solid #f5c6cb;
+    border-radius: 10px;
+    padding: 20px;
+    color: #721c24;
+}
+
+.deleted-student-card h4 {
+    margin-bottom: 15px;
+    color: #721c24;
+}
+
+.deleted-student-card p {
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.deleted-student-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.deleted-students-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.search-section {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    border: 2px solid #e9ecef;
+}
+
+.search-box {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.search-input {
+    flex: 1;
+    padding: 12px 20px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    min-width: 200px;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
+}
+
+.btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-sm {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+.btn-primary {
+    background: #3498db;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+}
+
+.btn-success {
+    background: #27ae60;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #229954;
+}
+
+.btn-warning {
+    background: #f39c12;
+    color: white;
+}
+
+.btn-warning:hover {
+    background: #e67e22;
+}
+
+.btn-export {
+    background: #8e44ad;
+    color: white;
+}
+
+.btn-export:hover {
+    background: #7d3c98;
+}
+
+.student-info {
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 20px;
+    display: none;
+}
+
+.student-info.show {
+    display: block;
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.student-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.detail-item {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+}
+
+.detail-label {
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.detail-value {
+    color: #7f8c8d;
+    font-size: 16px;
+}
+
+.student-action-buttons {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.student-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.attendance-section {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.session-selector {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.hw-section {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.select-input {
+    padding: 10px 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    min-width: 150px;
+}
+
+.time-display {
+    background: #2c3e50;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.table-container {
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+th, td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+}
+
+th {
+    background: #3498db;
+    color: white;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    cursor: pointer;
+    user-select: none;
+}
+
+th:hover {
+    background: #2980b9;
+}
+
+th .sort-arrow {
+    margin-left: 8px;
+    font-size: 12px;
+    opacity: 0.6;
+}
+
+tr:hover {
+    background: #f8f9fa;
+}
+
+.status-complete {
+    background: #d5edda;
+    color: #155724;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status-partial {
+    background: #fff3cd;
+    color: #856404;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status-not-done {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status-present {
+    background: #d5edda;
+    color: #155724;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status-absent {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.alert {
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    transition: opacity 0.3s ease;
+}
+
+.alert-success {
+    background: #d5edda;
+    color: #155724;
+    border: 2px solid #c3e6cb;
+}
+
+.alert-error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 2px solid #f5c6cb;
+}
+
+.quiz-score-input {
+    padding: 8px 12px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    width: 80px;
+    text-align: center;
+}
+
+.export-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.student-records-section {
+    background: #f0f8ff;
+    border: 2px solid #3498db;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.session-record {
+    display: inline-block;
+    margin: 5px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.session-date {
+    font-size: 11px;
+    color: #666;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+.student-counters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.counter-card {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.counter-card:hover {
+    transform: translateY(-5px);
+}
+
+.counter-number {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.counter-label {
+    font-size: 1.1em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.9;
+}
+
+.counter-card.total {
+    background: linear-gradient(135deg, #27ae60, #229954);
+    box-shadow: 0 8px 20px rgba(39, 174, 96, 0.3);
+}
+
+.counter-card.present {
+    background: linear-gradient(135deg, #f39c12, #e67e22);
+    box-shadow: 0 8px 20px rgba(243, 156, 18, 0.3);
+}
+
+.counter-card.absent {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    box-shadow: 0 8px 20px rgba(231, 76, 60, 0.3);
+}
+
+.counter-card.records {
+    background: linear-gradient(135deg, #8e44ad, #7d3c98);
+    box-shadow: 0 8px 20px rgba(142, 68, 173, 0.3);
+}
+
+@media (max-width: 768px) {
+    .tabs {
+        flex-direction: column;
+    }
+    
+    .search-box, .file-upload, .session-selector, .hw-section {
+        flex-direction: column;
+    }
+    
+    .student-details {
+        grid-template-columns: 1fr;
+    }
+
+    .student-counters {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .counter-number {
+        font-size: 2em;
+    }
+
+    .student-form {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .form-buttons, .student-management-buttons, .student-actions-bar, .deleted-students-actions {
+        flex-direction: column;
+    }
+
+    .deleted-students-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .student-action-buttons {
+        flex-direction: column;
+    }
+
+    .student-actions {
+        justify-content: center;
+    }
+}
+/* Enhanced styles.css - Includes QR and Sync features */
+
+/* Import your original styles */
+/* All original styles from styles.css remain the same */
+/* Add these new styles below your existing ones */
+
+/* ===== Connection Status ===== */
+.connection-bar {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    font-size: 14px;
+}
+
+.connection-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    padding: 5px 15px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.connection-status.connected {
+    background: rgba(39, 174, 96, 0.3);
+    border: 2px solid #27ae60;
+}
+
+.connection-status.disconnected {
+    background: rgba(231, 76, 60, 0.3);
+    border: 2px solid #e74c3c;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+.connection-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.connection-stat {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* ===== QR Code Styles ===== */
+.qr-button {
+    background: linear-gradient(135deg, #9b59b6, #8e44ad);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.qr-button:hover {
+    background: linear-gradient(135deg, #8e44ad, #7d3c98);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(142, 68, 173, 0.4);
+}
+
+/* QR Modal */
+.qr-modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    animation: fadeIn 0.3s ease;
+}
+
+.qr-modal {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.qr-modal-header {
+    background: linear-gradient(135deg, #9b59b6, #8e44ad);
+    color: white;
+    padding: 20px;
+    border-radius: 15px 15px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.qr-modal-header h3 {
+    margin: 0;
+}
+
+.close-button {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 28px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.close-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+}
+
+.qr-modal-body {
+    padding: 30px;
+}
+
+.student-info-qr {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.student-info-qr h4 {
+    margin: 0 0 10px 0;
+    color: #2c3e50;
+}
+
+.student-info-qr p {
+    margin: 5px 0;
+    color: #7f8c8d;
+}
+
+.qr-code-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    margin: 20px 0;
+    min-height: 280px;
+}
+
+.qr-code-container canvas {
+    border: 4px solid #9b59b6;
+    border-radius: 10px;
+    padding: 10px;
+    background: white;
+}
+
+.qr-instructions {
+    text-align: center;
+    color: #7f8c8d;
+    font-size: 14px;
+    margin: 20px 0;
+}
+
+.qr-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* QR Bulk Grid */
+.qr-bulk-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.qr-card {
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.qr-card:hover {
+    border-color: #9b59b6;
+    box-shadow: 0 5px 15px rgba(155, 89, 182, 0.2);
+    transform: translateY(-3px);
+}
+
+.qr-card-header {
+    margin-bottom: 10px;
+}
+
+.qr-card-header strong {
+    display: block;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.qr-card-header small {
+    color: #7f8c8d;
+    font-size: 12px;
+}
+
+.qr-card-body {
+    margin: 15px 0;
+    min-height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qr-card-body canvas {
+    max-width: 100%;
+    border: 2px solid #9b59b6;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.qr-card-footer {
+    margin-top: 10px;
+}
+
+/* QR Scanner */
+.qr-scanner-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    animation: fadeIn 0.3s ease;
+}
+
+.qr-scanner-modal {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.qr-scanner-header {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    padding: 20px;
+    border-radius: 15px 15px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.qr-scanner-body {
+    padding: 30px;
+    text-align: center;
+}
+
+.qr-scanner-body video {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.qr-scan-result {
+    min-height: 50px;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.qr-scanner-instructions {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.qr-scanner-instructions p {
+    margin: 10px 0;
+    color: #7f8c8d;
+}
+
+/* ===== Enhanced Student Info Display ===== */
+.student-qr-section {
+    background: linear-gradient(135deg, #f5f5f5, #e9ecef);
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.student-qr-section h4 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.qr-display-inline {
+    display: inline-block;
+    padding: 15px;
+    background: white;
+    border-radius: 10px;
+    border: 3px solid #9b59b6;
+}
+
+.qr-display-inline canvas {
+    display: block;
+}
+
+/* ===== Action Buttons Enhanced ===== */
+.action-buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.action-button {
+    padding: 15px 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.action-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.action-button-qr {
+    background: linear-gradient(135deg, #9b59b6, #8e44ad);
+    color: white;
+}
+
+.action-button-scan {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+}
+
+/* ===== Connected Devices Display ===== */
+.clients-list {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.client-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+
+.client-device {
+    font-weight: bold;
+}
+
+.client-time {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 11px;
+}
+
+/* ===== Loading Animations ===== */
+.loading {
+    text-align: center;
+    padding: 20px;
+    color: #7f8c8d;
+    font-style: italic;
+}
+
+.loading::after {
+    content: '...';
+    animation: dots 1.5s infinite;
+}
+
+@keyframes dots {
+    0%, 20% { content: '.'; }
+    40% { content: '..'; }
+    60%, 100% { content: '...'; }
+}
+
+/* ===== Sync Indicator ===== */
+.sync-indicator {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(46, 204, 113, 0.95);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    font-weight: bold;
+    display: none;
+    align-items: center;
+    gap: 8px;
+    z-index: 1500;
+    animation: slideIn 0.3s ease;
+}
+
+.sync-indicator.show {
+    display: flex;
+}
+
+.sync-indicator.syncing {
+    background: rgba(52, 152, 219, 0.95);
+}
+
+.sync-indicator.error {
+    background: rgba(231, 76, 60, 0.95);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* ===== Mobile Optimizations for QR ===== */
+@media (max-width: 768px) {
+    .qr-modal {
+        width: 95%;
+        max-height: 95vh;
+    }
+    
+    .qr-modal-body {
+        padding: 20px 15px;
+    }
+    
+    .qr-bulk-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+    }
+    
+    .qr-actions {
+        flex-direction: column;
+    }
+    
+    .action-buttons-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .connection-bar {
+        font-size: 12px;
+        padding: 8px 15px;
+    }
+    
+    .connection-info {
+        gap: 10px;
+    }
+    
+    .qr-scanner-body {
+        padding: 15px;
+    }
+}
+
+/* ===== Print Styles for QR Codes ===== */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    
+    .qr-print-container,
+    .qr-print-container * {
+        visibility: visible;
+    }
+    
+    .qr-print-container {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+}
+
+/* ===== Accessibility ===== */
+.qr-button:focus,
+.action-button:focus,
+.close-button:focus {
+    outline: 3px solid rgba(52, 152, 219, 0.5);
+    outline-offset: 2px;
+}
+
+/* ===== Additional Student Actions ===== */
+.student-action-buttons .btn-qr {
+    background: linear-gradient(135deg, #9b59b6, #8e44ad);
+    color: white;
+}
+
+.student-action-buttons .btn-qr:hover {
+    background: linear-gradient(135deg, #8e44ad, #7d3c98);
+}
+
+/* ===== Server Info Display ===== */
+.server-info-banner {
+    background: linear-gradient(135deg, #16a085, #1abc9c);
+    color: white;
+    padding: 15px 25px;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 0 0 10px 10px;
+    margin-bottom: 20px;
+}
+
+.server-info-banner strong {
+    font-size: 16px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.server-urls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    font-family: monospace;
+    font-size: 13px;
+}
+
+.server-url {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px 15px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.server-url:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+.qr-management-section {
+    background: linear-gradient(135deg, #f5f5f5, #e3e8f0);
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    border: 2px solid #9b59b6;
+}
+
+.qr-management-info {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 4px solid #9b59b6;
+}
+
+.qr-stats {
+    display: flex;
+    gap: 30px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.qr-stats span {
+    font-size: 14px;
+    color: #7f8c8d;
+}
+
+.qr-stats strong {
+    color: #2c3e50;
+    font-size: 18px;
+}
+
+.qr-management-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
